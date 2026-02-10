@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhichDoctor - Find the Right Specialist</title>
+    <meta name="description" content="AI-powered tool to help you find the right medical specialist based on your symptoms">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🩺 WhichDoctor</h1>
+            <nav>
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="history.html" class="nav-link">History</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+                <h2>⚠️ Medical Disclaimer</h2>
+                <p>
+                    This tool provides <strong>educational information only</strong> and is not a substitute for 
+                    professional medical advice, diagnosis, or treatment. Always seek the advice of your physician 
+                    or other qualified health provider with any questions you may have regarding a medical condition. 
+                    Never disregard professional medical advice or delay in seeking it because of something you have 
+                    read on this site.
+                </p>
+                <p class="disclaimer-emergency">
+                    <strong>If you think you may have a medical emergency, call 911 or go to the nearest emergency room immediately.</strong>
+                </p>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2>Find the Right Specialist for Your Symptoms</h2>
+                <p>Get AI-powered guidance on which type of medical specialist to consult based on your symptoms.</p>
+            </section>
+
+            <!-- Symptom Form -->
+            <section class="form-section">
+                <h3>Tell Us About Your Symptoms</h3>
+                
+                <form id="symptomForm">
+                    <!-- Symptoms -->
+                    <div id="symptomsContainer">
+                        <div class="symptom-group" data-symptom-index="0">
+                            <h4>Symptom 1</h4>
+                            <div class="form-group">
+                                <label for="symptom-desc-0">Description *</label>
+                                <textarea 
+                                    id="symptom-desc-0" 
+                                    name="symptom-desc-0" 
+                                    required 
+                                    minlength="10" 
+                                    maxlength="500"
+                                    placeholder="Describe your symptom in detail (e.g., 'Persistent fatigue and weakness')"
+                                    rows="3"
+                                ></textarea>
+                                <small class="char-count">0 / 500 characters</small>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="symptom-duration-0">Duration</label>
+                                    <input 
+                                        type="text" 
+                                        id="symptom-duration-0" 
+                                        name="symptom-duration-0"
+                                        placeholder="e.g., '2 weeks', '3 months'"
+                                    >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="symptom-severity-0">Severity</label>
+                                    <select id="symptom-severity-0" name="symptom-severity-0">
+                                        <option value="">Select...</option>
+                                        <option value="mild">Mild</option>
+                                        <option value="moderate">Moderate</option>
+                                        <option value="severe">Severe</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="symptom-frequency-0">Frequency</label>
+                                    <input 
+                                        type="text" 
+                                        id="symptom-frequency-0" 
+                                        name="symptom-frequency-0"
+                                        placeholder="e.g., 'daily', 'intermittent'"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="addSymptomBtn" class="btn btn-secondary">+ Add Another Symptom</button>
+                    
+                    <!-- Additional Information -->
+                    <div class="form-section-divider"></div>
+                    <h4>Additional Information (Optional)</h4>
+                    
+                    <div class="form-group">
+                        <label for="ageRange">Age Range</label>
+                        <input 
+                            type="text" 
+                            id="ageRange" 
+                            name="ageRange"
+                            placeholder="e.g., '25-35', '40-50'"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="existingConditions">Existing Medical Conditions</label>
+                        <input 
+                            type="text" 
+                            id="existingConditions" 
+                            name="existingConditions"
+                            placeholder="Separate multiple conditions with commas"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="medications">Current Medications</label>
+                        <input 
+                            type="text" 
+                            id="medications" 
+                            name="medications"
+                            placeholder="Separate multiple medications with commas"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalContext">Additional Context</label>
+                        <textarea 
+                            id="additionalContext" 
+                            name="additionalContext"
+                            maxlength="1000"
+                            placeholder="Any other relevant information (e.g., 'Symptoms worse in the morning')"
+                            rows="3"
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                        Analyze Symptoms
+                    </button>
+                </form>
+            </section>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing your symptoms...</p>
+            </div>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <div class="results-header">
+                    <h3>Analysis Results</h3>
+                    <button id="downloadPdfBtn" class="btn btn-secondary">Download PDF</button>
+                </div>
+                
+                <div id="resultsContent"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 WhichDoctor. Educational tool only - not medical advice.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

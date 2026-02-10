@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - WhichDoctor</title>
+    <meta name="description" content="View your previous symptom analyses">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🩺 WhichDoctor</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="history.html" class="nav-link active">History</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h2>Your Analysis History</h2>
+                <p>View your previous symptom analyses and recommendations.</p>
+            </section>
+
+            <section class="history-section">
+                <div class="history-controls">
+                    <button id="clearHistoryBtn" class="btn btn-secondary">Clear All History</button>
+                </div>
+
+                <div id="historyContainer">
+                    <!-- History entries will be populated here -->
+                </div>
+
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <p>No history available. Your symptom analyses will appear here.</p>
+                    <a href="index.html" class="btn btn-primary">Analyze Symptoms</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 WhichDoctor. Educational tool only - not medical advice.</p>
+        </div>
+    </footer>
+
+    <script src="history.js"></script>
+</body>
+</html>
