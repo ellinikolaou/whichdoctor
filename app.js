@@ -1,7 +1,7 @@
 // WhichDoctor - Frontend JavaScript
 // Handles form submission, API calls, results display, and localStorage
 
-const API_URL = 'http://localhost:5000/api/analyze';
+const API_URL = '/api/analyze';
 let symptomCount = 1;
 let initialAnalysisData = null;  // Store initial analysis for refinement
 
